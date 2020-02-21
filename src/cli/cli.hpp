@@ -328,6 +328,7 @@ private:
     void ProcessThread(int argc, char *argv[]);
     void ProcessDataset(int argc, char *argv[]);
     void ProcessTxPower(int argc, char *argv[]);
+    void ProcessRssi(int argc, char *argv[]);
     void ProcessUdp(int argc, char *argv[]);
     void ProcessVersion(int argc, char *argv[]);
 #if OPENTHREAD_CONFIG_MAC_FILTER_ENABLE

@@ -219,6 +219,7 @@ const struct Command Interpreter::sCommands[] = {
     {"txpower", &Interpreter::ProcessTxPower},
     {"udp", &Interpreter::ProcessUdp},
     {"version", &Interpreter::ProcessVersion},
+    {"rssi", &Interpreter::ProcessRssi},
 };
 
 Interpreter::Interpreter(Instance *aInstance)
@@ -3158,6 +3159,24 @@ void Interpreter::ProcessTxPower(int argc, char *argv[])
 
         SuccessOrExit(error = ParseLong(argv[0], value));
         SuccessOrExit(error = otPlatRadioSetTransmitPower(mInstance, static_cast<int8_t>(value)));
+    }
+
+exit:
+    AppendResult(error);
+}
+
+void Interpreter::ProcessRssi(int argc, char *argv[])
+{
+    otError error = OT_ERROR_NONE;
+
+    if (argc == 0)
+    {
+        int8_t rssi = otPlatRadioGetRssi(mInstance);
+        mServer->OutputFormat("%d dBm\r\n", rssi);
+    }
+    else
+    {
+        ExitNow(error = OT_ERROR_INVALID_ARGS);        
     }
 
 exit:
